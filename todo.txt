@@ -1,0 +1,1 @@
+Move the html to a template.

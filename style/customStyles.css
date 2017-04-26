@@ -1,0 +1,69 @@
+.customDiv{
+	margin-bottom: 10px;
+	min-height:20px;
+	background-color:#464646;
+	text-align:center;
+	font-size: large;
+	color:#EFEFEF;
+}
+
+.sideBar{
+		background-color:#dcfbcc;
+		padding-right: 5px;
+		min-height:300px;
+
+}
+
+.mainBar{
+		padding-left: 15px;
+
+}
+
+
+.restMethod{
+		background-color:#c1d7e2;
+		padding-right: 0px;
+
+}
+.restURL{
+
+
+}
+
+textarea {
+  resize: vertical; /* user can resize vertically, but width is fixed */
+}
+
+.restSend{
+		padding-left: 0px;
+		min-height:30px;
+
+}
+
+.historySection{
+	min-height: 100px;
+	text-align: center;
+}
+
+.restInputSection{
+}
+
+.headerRank{
+
+}
+
+.restInputDetails{
+	padding: 10px;
+}
+
+.optionsTab{
+	padding:10px;
+}
+
+.buttonsBar{
+	padding: 10px;
+}
+
+.bodyButton{
+	border-bottom: 20px;
+}
