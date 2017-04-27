@@ -4,6 +4,7 @@
 	background-color:#464646;
 	text-align:center;
 	font-size: large;
+	margin-top: 10px;
 	color:#EFEFEF;
 }
 
@@ -19,7 +20,12 @@
 
 }
 
-
+.outputChevron{
+	float:right;
+}
+.toggleFullOutputText{
+	float:right;
+}
 .restMethod{
 		background-color:#c1d7e2;
 		padding-right: 0px;
@@ -62,6 +68,14 @@ textarea {
 
 .buttonsBar{
 	padding: 10px;
+}
+.removeLink{
+	color: #d9534f;
+	display:inline-block;
+	 text-align:center;
+}
+.removeLink:hover {
+    font-weight:bold;
 }
 
 .bodyButton{
