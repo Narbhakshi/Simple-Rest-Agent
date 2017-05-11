@@ -9,12 +9,12 @@ $(document).ready(function() {
     this.restPAYLOAD = ko.observable('');
     this.restOutput = ko.observable('');
     this.showHeadersSectionFlag = ko.observable(true);
-    this.restMethodsArray = ko.observableArray(["GET","POST","PUT","DELETE"]);
+    this.restMethodsArray = ko.observableArray(["POST","GET","PUT","DELETE"]);
     this.headersList = ko.observableArray([]);
     this.itemToAdd = ko.observable('');
-    this.disablePayloadSection = ko.observable(true);
+    this.disablePayloadSection = ko.observable(false);
     this.restOutputAvailable = ko.observable(false);
-    this.toggleFullOutputText = ko.observable('Show more');
+    this.toggleFullOutputText = ko.observable('Show less');
     this.showFullRestOutput = ko.observable(false);
 
 
@@ -52,19 +52,24 @@ $(document).ready(function() {
         beforeSend: setHeaders,
         dataType: "json",
         success: function(data, textStatus, request) {
-          this.displayResult(data);
+          this.displayResult(data, textStatus, request);
+        }.bind(this),
+        error: function(){
+          this.onFailureResponse();
         }.bind(this)
       })
     }.bind(this);
 
 
-    this.displayResult = function(response){
+    this.displayResult = function(response, textStatus, request){
       console.log(response);
-      this.restOutput(JSON.stringify(response.data, null, 2));
-      delete response.data;
-      delete response.json;
-      this.fullRestOutput(JSON.stringify(response, null, 2));
+      this.restOutput(JSON.stringify(response, null, 2));
+      this.fullRestOutput(request.getAllResponseHeaders());
       this.restOutputAvailable(true);
+    }.bind(this);
+
+    this.onFailureResponse = function(){
+      console.error('ERRRRRRRRRRRROOOOOOOOORRRRRRRRRRRR');
     }.bind(this);
 
     this.showHistorySection = function(){
@@ -76,10 +81,10 @@ $(document).ready(function() {
     this.toggleFullOutput = function(){
       if(this.showFullRestOutput()){
         this.showFullRestOutput(false);
-        this.toggleFullOutputText('Show less');
+        this.toggleFullOutputText('Show more');
       }else {
         this.showFullRestOutput(true);
-        this.toggleFullOutputText('Show more');
+        this.toggleFullOutputText('Show less');
       }
     }.bind(this);
 
@@ -108,7 +113,7 @@ $(document).ready(function() {
         tempObject["headerValue"] = this.itemToAdd.headerValue;
         tempObject["headerRank"] = this.headersList().length;
         this.headersList.push(tempObject);
-        this.itemToAdd("");
+        this.itemToAdd.headerName("");
       }
     }.bind(this);
 
