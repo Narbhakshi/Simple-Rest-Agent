@@ -23,30 +23,44 @@
   <div class="container headerPlaceHolder">
     <div class="row">
       <div class="col-lg-12 customDiv">
-        HELLO
+        <div class = "ApplicationTitle">
+          HELLO
+        </div>
       </div>
-    </div>
 
-  </div>
-  <div class = "container bodyPlaceHolder">
-    <div class="loader-and-cover">
-      <div id="cover" data-bind="visible:isLoading, click:toggleLoader"></div>
-      <div id="loader" data-bind="visible:isLoading, click:toggleLoader"></div>
     </div>
-    <form class="navbar-left">
-      <div class = "restInputBlock form-group">
-        <div class="row buttonsBar">
-          <div class="col-lg-2 restMethods">
-            <select class="form-control" data-bind="click:onRestMethodChange, value:selectedRestMethod, options:restMethodsArray"></select>
-          </div>
-          <div class="col-lg-9 restURLClass">
-            <div class="input-group">
+    <div class = "row bodyPlaceHolder">
+      <div class="loader-and-cover">
+        <div id="cover" data-bind="visible:isLoading, click:toggleLoader"></div>
+        <div id="loader" data-bind="visible:isLoading, click:toggleLoader"></div>
+      </div>
+      <form class="navbar-left" data-bind="submit:restSubmitted">
+        <div class = "restInputBlock">
+          <div class="row buttonsBar">
+            <div class="col-lg-2 restMethods">
+              <select class="form-control" data-bind="click:onRestMethodChange, value:selectedRestMethod, options:restMethodsArray"></select>
+            </div>
+            <div class="col-lg-9 restURLClass">
+              <!-- <div class="input-group">
               <span class="input-group-addon" id="basic-addon1"></span>
               <input type="url" class="form-control" placeholder="Enter REST URL" aria-describedby="basic-addon1" data-bind="value:restURL">
+            </div> -->
+
+
+            <div class="input-group">
+              <div class="input-group-addon restURLError alert-danger" data-bind="visible:!isRestUrlValid()" >
+                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+              </div>
+              <div class="input-group-addon restURLValid" data-bind="visible:isRestUrlValid()">
+                <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+              </div>
+              <input type="url" class="form-control" id="inlineFormInputGroup" placeholder="Enter REST URL" data-bind="textInput:restURL, css:restURLInputClass">
             </div>
+
+
           </div>
           <div class="col-lg-1 restSend">
-            <button type="submit" class="btn btn-primary" data-bind="click:restSubmitted">Send</button>
+            <button type="submit" class="btn btn-primary restURLButtonClass" data-bind="enable:isRestUrlValid()">Send</button>
           </div>
         </div>
         <div class="row optionsTab">
@@ -82,15 +96,34 @@
                   </thead>
                   <tbody data-bind="foreach:headersList">
                     <tr>
-                      <th scope="row" class="headerRank" data-bind="text:headerRank"></th>
+                      <th scope="row" class="headerRank" data-bind="text:$index()+1"></th>
                       <td class ="headerKey" data-bind="text: headerKey "></td>
                       <td class ="headerValue" data-bind="text: headerValue "></td>
                       <td><a href="#" type="button" class="removeLink" data-bind="click: $parent.removeHeader">Remove</a></td>
                     </tr>
                   </tbody>
+                <!-- </table>
+
+                <table class="table table-sm table-striped table-hover"> -->
+                  <tbody>
+                    <tr class="sm">
+                      <th >Header</th>
+                      <td class ="headerKey">
+                        <input placeholder="key" class="form-control" data-bind='textInput: itemToAddHeaderName' />
+                      </td>
+                      <td class ="headerValue">
+                        <input placeholder="value" class="form-control" data-bind='textInput:itemToAddHeaderValue' />
+                      </td>
+                      <td><button class="btn btn-primary" type="button " data-bind="click:addItem" text="Addd ">Add</button>
+
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
-              <div class="headerInputSection">
+
+
+              <!-- <div class="headerInputSection">
                 <div class="col-md-4 offset-1 headerNameInput">
                   <input placeholder="key" data-bind='textInput: itemToAddHeaderName' />
                 </div>
@@ -100,7 +133,11 @@
                 <div class="headerAddInput pull-right">
                   <button class="button" type="button " data-bind="click:addItem" text="Addd ">Add</button>
                 </div>
-              </div>
+              </div> -->
+
+
+
+
             </div>
             <div class="restPayloadSection" data-bind="visible:showPayloadFlag">
               <label for="exampleTextarea">Input Payload</label>
@@ -132,28 +169,28 @@
       </div>
       <div class="row">
         <div class="restSuccess highlight" data-bind="visible:restSuccess">
-          <textarea class="restOutputClass xx" rows="20" data-bind="text:restOutput" readonly></textarea>
+          <textarea class="restOutputClass xx" rows="10" data-bind="text:restOutput" readonly></textarea>
         </div>
         <!--
         <div class="restError" id="restErrorPlaceHolder" data-bind="visible:restFail">
-        </div>
-         16:9 aspect ratio -->
-        <div class="restError embed-responsive embed-responsive-4by3">
-          <iframe class="embed-responsive-item" id="restErrorPlaceHolder" data-bind="visible:restFail"></iframe>
-        </div>
+      </div>
+      16:9 aspect ratio -->
+      <div class="restError embed-responsive embed-responsive-4by3" data-bind="visible:restFail">
+        <iframe class="embed-responsive-item" id="restErrorPlaceHolder" ></iframe>
       </div>
     </div>
-
-
   </div>
 
 
+</div>
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="lib/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="bootstrap/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="lib/knockoutt.js"></script>
-  <script type="text/javascript" src="viewModel/restClientViewModel.js"></script>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="lib/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/knockoutt.js"></script>
+<script type="text/javascript" src="viewModel/restClientViewModel.js"></script>
 </body>
 </html>

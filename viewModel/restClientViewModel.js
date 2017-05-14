@@ -5,6 +5,7 @@ $(document).ready(function() {
     this.restURL = ko.observable('');
     this.showHistoryFlag = ko.observable(false);
     this.showPayloadFlag = ko.observable(false);
+    this.isRestUrlValid = ko.observable('');
     this.fullRestOutput  = ko.observable('');
     this.restPAYLOAD = ko.observable('');
     this.restOutput = ko.observable('');
@@ -13,6 +14,7 @@ $(document).ready(function() {
     this.showHeadersSectionFlag = ko.observable(true);
     this.restMethodsArray = ko.observableArray(["GET","POST","PUT","DELETE"]);
     this.headersList = ko.observableArray([]);
+    this.restURLInputClass = ko.observable('');
     this.itemToAddHeaderValue = ko.observable('');
     this.itemToAddHeaderName = ko.observable('');
     this.isLoading = ko.observable(false);
@@ -21,7 +23,7 @@ $(document).ready(function() {
     this.toggleFullOutputText = ko.observable('Show more');
     this.showFullRestOutput = ko.observable(false);
 
-
+    var self = this;
 
     this.onRestMethodChange = function() {
       if(this.selectedRestMethod() === "GET" || this.selectedRestMethod() === "DELETE" ){
@@ -35,12 +37,35 @@ $(document).ready(function() {
       }
     }.bind(this);
 
+    /*
+    This subscribe to any change in the input URL
+    and validate the URL
+    */
+    this.restURL.subscribe(function(newValue){
+      var expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+      var regex = new RegExp(expression);
+      var restUrl =  newValue.replace(/ /g,'');
+      if (restUrl.match(regex)) {
+        self.isRestUrlValid(true);
+      } else {
+        self.isRestUrlValid(false);
+      }
+    });
+
+    this.isRestUrlValid.subscribe(function(newValue){
+      if (newValue) {
+        self.restURLInputClass('restURLValid');
+      } else {
+        self.restURLInputClass('restURLNOTValid');
+      }
+    });
+
     this.restSubmitted = function(){
       this.restOutputAvailable(false);
       this.toggleLoader();
       var method = this.selectedRestMethod();
       var restPayload = this.restPAYLOAD();
-      var url = this.restURL();
+      var url = this.restURL().replace(/ /g,'');
       var headerArray = this.headersList();
 
 
@@ -97,12 +122,12 @@ $(document).ready(function() {
       var copyTextarea = document.querySelector('.restOutputClass');
       copyTextarea.select();
       try {
-          var successful = document.execCommand('copy');
-          var msg = successful ? 'successful' : 'unsuccessful';
-          console.log('Copying text command was ' + msg);
-        } catch (err) {
-          console.log('Oops, unable to copy');
-        }
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Copying text command was ' + msg);
+      } catch (err) {
+        console.log('Oops, unable to copy');
+      }
     }.bind(this);
 
     this.showHistorySection = function(){

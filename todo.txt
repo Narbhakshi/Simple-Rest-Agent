@@ -1,2 +1,3 @@
 Move the html to a template.
-Empty the place holder for adding headers after adding it.
+Empty the place holder for adding headers after adding it. -- Done
+Copy to clipboard URL hide/display
