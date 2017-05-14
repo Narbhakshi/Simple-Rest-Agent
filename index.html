@@ -135,9 +135,6 @@
         </div>
       </div> -->
 
-
-
-
     </div>
     <div class="restPayloadSection" data-bind="visible:showPayloadFlag">
       <label for="exampleTextarea">Input Payload</label>
@@ -164,7 +161,8 @@
 
   <div class="row outputControls">
     <span>OUTPUT CONTROLS HEADER BAR</span>
-    <a class="toggleFullOutputText" data-toggle="collapse" href="#restFullOutputSection" aria-expanded="false" aria-controls="restFullOutputSection" data-bind="text:toggleFullOutputText"></a>
+    <a class="toggleFullOutputText" data-toggle="collapse" href="#restFullOutputSection" data-title="Show all the response headers" data-toggle="tooltip"
+     aria-expanded="false" aria-controls="restFullOutputSection" data-placement="bottom" data-bind="text:toggleFullOutputText,click:toggleFullOutput"></a>
     <span class="glyphicon outputChevron" data-bind="css:{'glyphicon-chevron-up':showFullRestOutput, 'glyphicon-chevron-down':!showFullRestOutput()}" aria-hidden="true"></span>
     <div class="col-lg-12 collapse" id="restFullOutputSection">
 		<div class="card card-block">
@@ -181,12 +179,12 @@
       OUTPUT SECTION
     </div>
     <div class = "col-md-3 pull-right no-gutters copyResponseButton">
-      <a class="copyResponseButtonLink" data-bind="click:copyToClipboard" href="#">Copy full output into clipboard</a>
+      <a class="copyResponseButtonLink" data-toggle="tooltip" data-title="Copy full output into clipboard" data-placement="bottom" data-bind="click:copyToClipboard" href="#">Copy</a>
     </div>
   </div>
   <div class="row">
     <div class="restSuccess highlight" data-bind="visible:restSuccess">
-      <textarea class="restOutputClass xx" rows="10" data-bind="text:restOutput" readonly></textarea>
+      <textarea class="restOutputClass xx" rows="20" data-bind="text:restOutput" readonly></textarea>
     </div>
     <!--
     <div class="restError" id="restErrorPlaceHolder" data-bind="visible:restFail">

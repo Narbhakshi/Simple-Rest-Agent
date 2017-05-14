@@ -30,6 +30,16 @@ $(document).ready(function() {
       self.isLoading(false);
     }, 500);
 
+
+    /*
+     Tooltips must be initialized with jQuery
+    */
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+
+
+
     this.onRestMethodChange = function() {
       if(this.selectedRestMethod() === "GET" || this.selectedRestMethod() === "DELETE" ){
         this.showPayloadFlag(false);
