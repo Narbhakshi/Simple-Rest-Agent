@@ -4,6 +4,13 @@ This is a simple project to serve simple needs.
 Sometimes installation of new softwares/access of open internet is restriced on many machines we need to work on.
 This project aims to cater those audience.
 
+## Features it offers:
+* Make REST calls
+* Add custom headers to REST
+* Send JSON payload in raw/pretty format
+* Copy the response into clipboard
+
+
 It uses:
 1. jQuery v1.12.4
 2. Bootstrap v3.3.7
@@ -16,5 +23,5 @@ All the files are loaded from local machines. cdn or localhost cannot be used as
 * Save/open history in files on local machine
 * Auto-complete for common standard HTTP headers
 * Improve status code related details to the users
-* 
+* Better support for SOAP
 
