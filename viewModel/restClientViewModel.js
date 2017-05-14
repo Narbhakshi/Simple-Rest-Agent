@@ -5,7 +5,7 @@ $(document).ready(function() {
     this.restURL = ko.observable('');
     this.showHistoryFlag = ko.observable(false);
     this.showPayloadFlag = ko.observable(false);
-    this.isRestUrlValid = ko.observable('');
+    this.isRestUrlValid = ko.observable('1');
     this.fullRestOutput  = ko.observable('');
     this.restPAYLOAD = ko.observable('');
     this.restOutput = ko.observable('');
@@ -17,13 +17,18 @@ $(document).ready(function() {
     this.restURLInputClass = ko.observable('');
     this.itemToAddHeaderValue = ko.observable('');
     this.itemToAddHeaderName = ko.observable('');
-    this.isLoading = ko.observable(false);
+    this.isLoading = ko.observable(true);
     this.disablePayloadSection = ko.observable(true);
     this.restOutputAvailable = ko.observable(false);
     this.toggleFullOutputText = ko.observable('Show more');
     this.showFullRestOutput = ko.observable(false);
 
     var self = this;
+
+
+    setTimeout(function(){
+      self.isLoading(false);
+    }, 500);
 
     this.onRestMethodChange = function() {
       if(this.selectedRestMethod() === "GET" || this.selectedRestMethod() === "DELETE" ){

@@ -1,3 +1,6 @@
 Move the html to a template.
 Empty the place holder for adding headers after adding it. -- Done
 Copy to clipboard URL hide/display
+
+autocomplete headers section
+Modal for more details

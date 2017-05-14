@@ -1,21 +1,16 @@
 
 .customDiv{
-	//this is inspired from atom website
-	text-align: left;
-	padding: 5px 0;
+	text-align: center;
+	padding: 10px 0;
 	background-color: #584b4f;
 	color: #efeae1;
-	font-size: 14px;
-	height: 43px;
+	font-size: 18px;
+	height: 40px;
 	box-sizing: border-box;
 	font-family: "Helvetica Neue", Helvetica, arial, freesans, clean, sans-serif;
 	display: block;
 }
 
-
-.ApplicationTitle{
-	text-align: center;
-}
 
 .sideBar{
 	background-color:#dcfbcc;
@@ -97,6 +92,10 @@
 		border-width:3px;
 		-webkit-border-image:
 		-webkit-gradient(linear, 100% 0, 0 100%, from(#4cd964), to(#007aff)) 100% 1;
+	}
+
+	.table tbody tr th.headerRest{
+		vertical-align: middle;
 	}
 
 	.xddddx {

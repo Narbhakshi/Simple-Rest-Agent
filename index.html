@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first <i></i>n the head; any other head content must come *after* these tags -->
-  <title>Rest Agent</title>
+  <title>Simple Rest Agent</title>
 
   <!-- Bootstrap -->
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
@@ -24,7 +24,7 @@
     <div class="row">
       <div class="col-lg-12 customDiv">
         <div class = "ApplicationTitle">
-          HELLO
+          Simple Rest Agent
         </div>
       </div>
 
@@ -102,14 +102,14 @@
                       <td><a href="#" type="button" class="removeLink" data-bind="click: $parent.removeHeader">Remove</a></td>
                     </tr>
                   </tbody>
-                <!-- </table>
+                  <!-- </table>
 
-                <table class="table table-sm table-striped table-hover"> -->
+                  <table class="table table-sm table-striped table-hover"> -->
                   <tbody>
                     <tr class="sm">
-                      <th >Header</th>
+                      <th class="headerRest">Header</th>
                       <td class ="headerKey">
-                        <input placeholder="key" class="form-control" data-bind='textInput: itemToAddHeaderName' />
+                        <input placeholder="key" class="form-control" id="itemToAddHeaderNameInput" data-bind='textInput: itemToAddHeaderName' />
                       </td>
                       <td class ="headerValue">
                         <input placeholder="value" class="form-control" data-bind='textInput:itemToAddHeaderValue' />
@@ -124,62 +124,79 @@
 
 
               <!-- <div class="headerInputSection">
-                <div class="col-md-4 offset-1 headerNameInput">
-                  <input placeholder="key" data-bind='textInput: itemToAddHeaderName' />
-                </div>
-                <div class="col-md-4 headerValueInput">
-                  <input placeholder="value" data-bind='textInput:itemToAddHeaderValue' />
-                </div>
-                <div class="headerAddInput pull-right">
-                  <button class="button" type="button " data-bind="click:addItem" text="Addd ">Add</button>
-                </div>
-              </div> -->
-
-
-
-
+              <div class="col-md-4 offset-1 headerNameInput">
+              <input placeholder="key" data-bind='textInput: itemToAddHeaderName' />
             </div>
-            <div class="restPayloadSection" data-bind="visible:showPayloadFlag">
-              <label for="exampleTextarea">Input Payload</label>
-              <textarea class="form-control" id="exampleTextarea" spellcheck="false" data-bind="value:restPAYLOAD" placeholder="Enter REST payload here" rows="6"></textarea>
-            </div>
+            <div class="col-md-4 headerValueInput">
+            <input placeholder="value" data-bind='textInput:itemToAddHeaderValue' />
           </div>
-        </form>
-      </div>
+          <div class="headerAddInput pull-right">
+          <button class="button" type="button " data-bind="click:addItem" text="Addd ">Add</button>
+        </div>
+      </div> -->
+
+
+
+
     </div>
-    <div class="restOutputBlock" data-bind="visible:restOutputAvailable">
-      <div class="row outputControls">
-        <span>OUTPUT CONTROLS HEADER BAR</span>
-        <a class="toggleFullOutputText" data-bind="text:toggleFullOutputText, click:toggleFullOutput" href="#"></a>
-        <span class="glyphicon outputChevron" data-bind="css:{'glyphicon-chevron-up':showFullRestOutput, 'glyphicon-chevron-down':!showFullRestOutput()}" aria-hidden="true"></span>
-      </div>
-      <div class="row">
-        <div class="col-lg-12" data-bind="visible:showFullRestOutput">
-          FULL OUTPUT SECTION
-          <pre style="overflow:scroll; height: 200px; padding: 20px; border: 1px solid;" data-bind="text:fullRestOutput"></pre>
-        </div>
-      </div>
-      <div class="row">
-        <div class = "col-md-2 outputSection">
-          OUTPUT SECTION
-        </div>
-        <div class = "col-md-3 pull-right no-gutters copyResponseButton">
-          <a class="copyResponseButtonLink" data-bind="click:copyToClipboard" href="#">Copy full output into clipboard</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="restSuccess highlight" data-bind="visible:restSuccess">
-          <textarea class="restOutputClass xx" rows="10" data-bind="text:restOutput" readonly></textarea>
-        </div>
-        <!--
-        <div class="restError" id="restErrorPlaceHolder" data-bind="visible:restFail">
-      </div>
-      16:9 aspect ratio -->
-      <div class="restError embed-responsive embed-responsive-4by3" data-bind="visible:restFail">
-        <iframe class="embed-responsive-item" id="restErrorPlaceHolder" ></iframe>
-      </div>
+    <div class="restPayloadSection" data-bind="visible:showPayloadFlag">
+      <label for="exampleTextarea">Input Payload</label>
+      <textarea class="form-control" id="exampleTextarea" spellcheck="false" data-bind="value:restPAYLOAD" placeholder="Enter REST payload here" rows="6"></textarea>
     </div>
   </div>
+</form>
+</div>
+</div>
+<div class="restOutputBlock" data-bind="visible:restOutputAvailable">
+
+
+  <!-- <div class="row outputControls">
+    <span>OUTPUT CONTROLS HEADER BAR</span>
+    <a class="toggleFullOutputText" data-bind="text:toggleFullOutputText, click:toggleFullOutput" href="#"></a>
+    <span class="glyphicon outputChevron" data-bind="css:{'glyphicon-chevron-up':showFullRestOutput, 'glyphicon-chevron-down':!showFullRestOutput()}" aria-hidden="true"></span>
+    <div class="row">
+      <div class="col-lg-12" data-bind="visible:showFullRestOutput">
+        FULL OUTPUT SECTION
+        <pre style="overflow:scroll; height: 200px; padding: 20px; border: 1px solid;" data-bind="text:fullRestOutput"></pre>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="row outputControls">
+    <span>OUTPUT CONTROLS HEADER BAR</span>
+    <a class="toggleFullOutputText" data-toggle="collapse" href="#restFullOutputSection" aria-expanded="false" aria-controls="restFullOutputSection" data-bind="text:toggleFullOutputText"></a>
+    <span class="glyphicon outputChevron" data-bind="css:{'glyphicon-chevron-up':showFullRestOutput, 'glyphicon-chevron-down':!showFullRestOutput()}" aria-hidden="true"></span>
+    <div class="col-lg-12 collapse" id="restFullOutputSection">
+		<div class="card card-block">
+        FULL OUTPUT SECTION
+        <pre style="overflow:scroll; height: 200px; padding: 20px; border: 1px solid;" data-bind="text:fullRestOutput"></pre>
+		</div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class = "col-md-2 outputSection">
+      OUTPUT SECTION
+    </div>
+    <div class = "col-md-3 pull-right no-gutters copyResponseButton">
+      <a class="copyResponseButtonLink" data-bind="click:copyToClipboard" href="#">Copy full output into clipboard</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="restSuccess highlight" data-bind="visible:restSuccess">
+      <textarea class="restOutputClass xx" rows="10" data-bind="text:restOutput" readonly></textarea>
+    </div>
+    <!--
+    <div class="restError" id="restErrorPlaceHolder" data-bind="visible:restFail">
+  </div>
+  16:9 aspect ratio -->
+  <div class="restError embed-responsive embed-responsive-4by3" data-bind="visible:restFail">
+    <iframe class="embed-responsive-item" id="restErrorPlaceHolder" ></iframe>
+  </div>
+</div>
+</div>
 
 
 </div>
