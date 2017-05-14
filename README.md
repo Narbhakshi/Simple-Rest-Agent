@@ -12,5 +12,9 @@ It uses:
 
 All the files are loaded from local machines. cdn or localhost cannot be used as a new server cannot be installed and the access to open web is restricted.
 
-
+## TODO - features under development
+* Save/open history in files on local machine
+* Auto-complete for common standard HTTP headers
+* Improve status code related details to the users
+* 
 
