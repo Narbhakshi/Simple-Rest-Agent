@@ -1,1 +1,2 @@
 Move the html to a template.
+Empty the place holder for adding headers after adding it.

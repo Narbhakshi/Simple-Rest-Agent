@@ -8,19 +8,23 @@ $(document).ready(function() {
     this.fullRestOutput  = ko.observable('');
     this.restPAYLOAD = ko.observable('');
     this.restOutput = ko.observable('');
+    this.restSuccess = ko.observable(false);
+    this.restFail = ko.observable(false);
     this.showHeadersSectionFlag = ko.observable(true);
-    this.restMethodsArray = ko.observableArray(["POST","GET","PUT","DELETE"]);
+    this.restMethodsArray = ko.observableArray(["GET","POST","PUT","DELETE"]);
     this.headersList = ko.observableArray([]);
-    this.itemToAdd = ko.observable('');
-    this.disablePayloadSection = ko.observable(false);
+    this.itemToAddHeaderValue = ko.observable('');
+    this.itemToAddHeaderName = ko.observable('');
+    this.isLoading = ko.observable(false);
+    this.disablePayloadSection = ko.observable(true);
     this.restOutputAvailable = ko.observable(false);
-    this.toggleFullOutputText = ko.observable('Show less');
+    this.toggleFullOutputText = ko.observable('Show more');
     this.showFullRestOutput = ko.observable(false);
 
 
 
     this.onRestMethodChange = function() {
-      if(this.selectedRestMethod() === "GET"){
+      if(this.selectedRestMethod() === "GET" || this.selectedRestMethod() === "DELETE" ){
         this.showPayloadFlag(false);
         this.disablePayloadSection(true);
         this.showHeadersSectionFlag(true);
@@ -32,6 +36,8 @@ $(document).ready(function() {
     }.bind(this);
 
     this.restSubmitted = function(){
+      this.restOutputAvailable(false);
+      this.toggleLoader();
       var method = this.selectedRestMethod();
       var restPayload = this.restPAYLOAD();
       var url = this.restURL();
@@ -54,8 +60,8 @@ $(document).ready(function() {
         success: function(data, textStatus, request) {
           this.displayResult(data, textStatus, request);
         }.bind(this),
-        error: function(){
-          this.onFailureResponse();
+        error: function(data, textStatus, request){
+          this.onFailureResponse(data, textStatus, request);
         }.bind(this)
       })
     }.bind(this);
@@ -66,10 +72,37 @@ $(document).ready(function() {
       this.restOutput(JSON.stringify(response, null, 2));
       this.fullRestOutput(request.getAllResponseHeaders());
       this.restOutputAvailable(true);
+      this.restSuccess(true);
+      this.restFail(false);
+      this.toggleLoader();
     }.bind(this);
 
-    this.onFailureResponse = function(){
-      console.error('ERRRRRRRRRRRROOOOOOOOORRRRRRRRRRRR');
+    this.onFailureResponse = function(data, textStatus, request){
+      this.restOutputAvailable(true);
+      this.restSuccess(false);
+      this.restFail(true);
+      var iframe = document.getElementById('restErrorPlaceHolder');
+      var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+      iframedoc.body.innerHTML = data.responseText;
+
+
+
+      this.fullRestOutput(data.getAllResponseHeaders());
+      //console.error('ERRRRRRRRRRRROOOOOOOOORRRRRRRRRRRR');
+      this.toggleLoader();
+    }.bind(this);
+
+    this.copyToClipboard = function(){
+      console.log("copyToClipbo restOutputClass");
+      var copyTextarea = document.querySelector('.restOutputClass');
+      copyTextarea.select();
+      try {
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Copying text command was ' + msg);
+        } catch (err) {
+          console.log('Oops, unable to copy');
+        }
     }.bind(this);
 
     this.showHistorySection = function(){
@@ -103,17 +136,26 @@ $(document).ready(function() {
       this.showPayloadFlag(true);
     }.bind(this);
 
+    this.toggleLoader = function(){
+      if(this.isLoading()){
+        this.isLoading(false);
+      }else {
+        this.isLoading(true);
+      }
+    }.bind(this);
+
 
 
 
     this.addItem = function() {
-      if(this.itemToAdd.headerName && this.itemToAdd.headerValue){
+      if(this.itemToAddHeaderName() && this.itemToAddHeaderValue()){
         var tempObject = {};
-        tempObject["headerKey"] = this.itemToAdd.headerName;
-        tempObject["headerValue"] = this.itemToAdd.headerValue;
-        tempObject["headerRank"] = this.headersList().length;
+        tempObject["headerKey"] = this.itemToAddHeaderName();
+        tempObject["headerValue"] = this.itemToAddHeaderValue();
+        tempObject["headerRank"] = this.headersList().length + 1;
         this.headersList.push(tempObject);
-        this.itemToAdd.headerName("");
+        this.itemToAddHeaderName ("") ;
+        this.itemToAddHeaderValue("") ;
       }
     }.bind(this);
 
