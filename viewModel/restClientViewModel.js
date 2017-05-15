@@ -5,7 +5,7 @@ $(document).ready(function() {
     this.restURL = ko.observable('');
     this.showHistoryFlag = ko.observable(false);
     this.showPayloadFlag = ko.observable(false);
-    this.isRestUrlValid = ko.observable('1');
+    this.isRestUrlValid = ko.observable(false);
     this.fullRestOutput  = ko.observable('');
     this.restPAYLOAD = ko.observable('');
     this.restOutput = ko.observable('');
