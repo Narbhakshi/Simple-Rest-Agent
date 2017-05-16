@@ -10,7 +10,7 @@
   <!-- Bootstrap -->
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="style/customStyles.css" rel="stylesheet"/>
-  <link rel="icon" href="favicon.png">
+  <link rel="icon" href="images/favicon.png">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -174,7 +174,7 @@
 
 
 
-  <div class="row">
+  <div class="row" data-bind="visible:restSuccess">
     <div class = "col-md-2 outputSection">
       OUTPUT SECTION
     </div>
@@ -182,18 +182,22 @@
       <a class="copyResponseButtonLink" data-toggle="tooltip" data-title="Copy full output into clipboard" data-placement="bottom" data-bind="click:copyToClipboard" href="#">Copy</a>
     </div>
   </div>
-  <div class="row">
-    <div class="restSuccess highlight" data-bind="visible:restSuccess">
+    <div class="row restSuccess highlight" data-bind="visible:restSuccess">
       <textarea class="restOutputClass xx" rows="20" data-bind="text:restOutput" readonly></textarea>
     </div>
     <!--
     <div class="restError" id="restErrorPlaceHolder" data-bind="visible:restFail">
   </div>
   16:9 aspect ratio -->
-  <div class="restError embed-responsive embed-responsive-4by3" data-bind="visible:restFail">
+
+  <div class="row restErrorImagePlaceHolder" data-bind="visible:restFail">
+    <img class="rounded mx-auto d-block img-thumbnail" alt="Image for error codes" data-bind="attr: {src:restErrorImageSrc}">
+  </div>
+
+  <div class=" row restError embed-responsive embed-responsive-4by3" data-bind="visible:restFail">
     <iframe class="embed-responsive-item" id="restErrorPlaceHolder" ></iframe>
   </div>
-</div>
+
 </div>
 
 

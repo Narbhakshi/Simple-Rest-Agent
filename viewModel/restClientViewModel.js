@@ -17,6 +17,7 @@ $(document).ready(function() {
     this.restURLInputClass = ko.observable('');
     this.itemToAddHeaderValue = ko.observable('');
     this.itemToAddHeaderName = ko.observable('');
+    this.restErrorImageSrc = ko.observable('');
     this.isLoading = ko.observable(true);
     this.disablePayloadSection = ko.observable(true);
     this.restOutputAvailable = ko.observable(false);
@@ -126,10 +127,17 @@ $(document).ready(function() {
       iframedoc.body.innerHTML = data.responseText;
 
 
-
+      debugger;
       this.fullRestOutput(data.getAllResponseHeaders());
       //console.error('ERRRRRRRRRRRROOOOOOOOORRRRRRRRRRRR');
       this.toggleLoader();
+      this.populateImageSRC(data.status);
+    }.bind(this);
+
+    this.populateImageSRC = function(errorCode){
+      console.log(errorCode);
+      var imageSrc = 'images/' + errorCode + '.png';
+      this.restErrorImageSrc(imageSrc);
     }.bind(this);
 
     this.copyToClipboard = function(){

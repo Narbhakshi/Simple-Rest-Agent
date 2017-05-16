@@ -207,21 +207,18 @@
 
 }
 
-
-
-
 .restURLValid{
 	    border: 1px solid #50881b;
 			    background-color: #dff1ba;
 
 }
 
-
-
-
-
 .restURLButtonClass{
 	float: right;
 	padding: 6px 30px;
 
+}
+
+.restErrorImagePlaceHolder{
+	text-align: center;
 }
