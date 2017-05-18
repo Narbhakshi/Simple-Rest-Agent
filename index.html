@@ -48,11 +48,11 @@
 
 
             <div class="input-group">
-              <div class="input-group-addon restURLError"  data-toggle="tooltip" data-placement="bottom" data-title="You must enter rest url to continue" data-bind="visible:isRestUrlValid() == -1" >
+              <div class="input-group-addon restURLError"  data-toggle="tooltip" data-placement="bottom" data-title="You must enter a valid rest url to continue" data-bind="visible:isRestUrlValid() == -1" >
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
               </div>
 
-              <div class="input-group-addon restURLError alert-danger" data-bind="visible:isRestUrlValid() == 0" >
+              <div class="input-group-addon restURLError alert-danger" data-toggle="tooltip" data-placement="bottom" data-title="Invalid URL entered"  data-bind="visible:isRestUrlValid() == 0" >
                 <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
               </div>
               <div class="input-group-addon restURLValid" data-bind="visible:isRestUrlValid() == 1">

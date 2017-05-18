@@ -5,3 +5,4 @@ Copy to clipboard URL hide/display
 autocomplete headers section
 Modal for more details
 ToolTips
+Json formatting  -- Learn from LUX component 
