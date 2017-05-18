@@ -48,10 +48,14 @@
 
 
             <div class="input-group">
-              <div class="input-group-addon restURLError alert-danger" data-bind="visible:!isRestUrlValid()" >
+              <div class="input-group-addon restURLError"  data-toggle="tooltip" data-placement="bottom" data-title="You must enter rest url to continue" data-bind="visible:isRestUrlValid() == -1" >
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              </div>
+
+              <div class="input-group-addon restURLError alert-danger" data-bind="visible:isRestUrlValid() == 0" >
                 <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
               </div>
-              <div class="input-group-addon restURLValid" data-bind="visible:isRestUrlValid()">
+              <div class="input-group-addon restURLValid" data-bind="visible:isRestUrlValid() == 1">
                 <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
               </div>
               <input type="url" class="form-control" id="inlineFormInputGroup" placeholder="Enter REST URL" data-bind="textInput:restURL, css:restURLInputClass">
@@ -60,7 +64,7 @@
 
           </div>
           <div class="col-lg-1 restSend">
-            <button type="submit" class="btn btn-primary restURLButtonClass" data-bind="enable:isRestUrlValid()">Send</button>
+            <button type="submit" class="btn btn-primary restURLButtonClass" data-bind="enable:isRestUrlValid()==1">Send</button>
           </div>
         </div>
         <div class="row optionsTab">
@@ -174,7 +178,7 @@
 
 
 
-  <div class="row" data-bind="visible:restSuccess">
+  <div class="row">
     <div class = "col-md-2 outputSection">
       OUTPUT SECTION
     </div>
@@ -189,15 +193,12 @@
     <div class="restError" id="restErrorPlaceHolder" data-bind="visible:restFail">
   </div>
   16:9 aspect ratio -->
-
-  <div class="row restErrorImagePlaceHolder" data-bind="visible:restFail">
-    <img class="rounded mx-auto d-block img-thumbnail" alt="Image for error codes" data-bind="attr: {src:restErrorImageSrc}">
-  </div>
-
   <div class=" row restError embed-responsive embed-responsive-4by3" data-bind="visible:restFail">
     <iframe class="embed-responsive-item" id="restErrorPlaceHolder" ></iframe>
   </div>
-
+  <div class="row restErrorImagePlaceHolder" data-bind="visible:restFail">
+    <img class="rounded mx-auto d-block" alt="Image for error codes" data-bind="attr: {}">
+  </div>
 </div>
 
 

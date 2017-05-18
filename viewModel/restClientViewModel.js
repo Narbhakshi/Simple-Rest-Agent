@@ -5,7 +5,7 @@ $(document).ready(function() {
     this.restURL = ko.observable('');
     this.showHistoryFlag = ko.observable(false);
     this.showPayloadFlag = ko.observable(false);
-    this.isRestUrlValid = ko.observable(false);
+    this.isRestUrlValid = ko.observable(-1);
     this.fullRestOutput  = ko.observable('');
     this.restPAYLOAD = ko.observable('');
     this.restOutput = ko.observable('');
@@ -61,15 +61,19 @@ $(document).ready(function() {
       var expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
       var regex = new RegExp(expression);
       var restUrl =  newValue.replace(/ /g,'');
-      if (restUrl.match(regex)) {
-        self.isRestUrlValid(true);
+      if(!newValue){
+        self.isRestUrlValid(-1);
+      }else  if (restUrl.match(regex)) {
+        self.isRestUrlValid(1);
       } else {
-        self.isRestUrlValid(false);
+        self.isRestUrlValid(0);
       }
     });
 
     this.isRestUrlValid.subscribe(function(newValue){
-      if (newValue) {
+      if(newValue == -1){
+        self.restURLInputClass('');
+      }else if (newValue) {
         self.restURLInputClass('restURLValid');
       } else {
         self.restURLInputClass('restURLNOTValid');
