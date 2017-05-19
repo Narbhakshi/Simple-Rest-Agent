@@ -54,7 +54,7 @@
             <div class="input-group-addon restURLValid" data-bind="visible:isRestUrlValid() == 1">
               <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
             </div>
-            <input type="url" class="form-control" id="inlineFormInputGroup" placeholder="Enter REST URL" data-bind="textInput:restURL, css:restURLInputClass">
+            <input type="url" class="form-control" autocomplete="on" id="inlineFormInputGroup" placeholder="Enter REST URL" data-bind="textInput:restURL, css:restURLInputClass">
           </div>
         </div>
 
@@ -110,7 +110,7 @@
                   <td class ="headerValue">
                     <input placeholder="value" class="form-control" data-bind='textInput:itemToAddHeaderValue' />
                   </td>
-                  <td><button class="btn btn-primary" type="button " data-bind="click:addItem" text="Addd ">Add</button>
+                  <td><button class="btn btn-primary" type="button " data-bind="click:addItem" text="Add">Add</button>
 
                   </td>
                 </tr>
@@ -126,8 +126,6 @@
     </form>
   </div>
 
-
-
   <div class="container restOutputBlock" data-bind="visible:restOutputAvailable">
 
     <div class="row outputControls">
@@ -142,17 +140,19 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class = "col-md-2 outputSection">
+    <div class="row outputSection">
         OUTPUT SECTION
-      </div>
-      <div class = "col-md-3 pull-right no-gutters copyResponseButton">
-        <a class="copyResponseButtonLink" data-toggle="tooltip" data-title="Copy full output into clipboard" data-placement="bottom" data-bind="click:copyToClipboard" href="#">Copy</a>
-      </div>
     </div>
-    <div class="row restSuccess highlight" data-bind="visible:restSuccess">
+    <div class="row restSuccess highlight" data-bind="visible:false">
       <textarea class="restOutputClass xx" rows="20" data-bind="text:restOutput" readonly></textarea>
     </div>
+
+    <div class="codeSectionDiv highlight" data-bind="visible:restSuccess">
+      <a class="copyResponseButtonLink pull-right" data-toggle="tooltip" data-title="Copy full output into clipboard" data-placement="bottom" data-bind="click:copyToClipboard" href="#">Copy</a>
+      <pre id="codeSection">
+      </pre>
+    </div>
+
     <div class="row restErrorImagePlaceHolder" data-bind="visible:restFail">
       <img class="col-md-4 rounded mx-auto d-block img-thumbnail" alt="Image for error codes" data-bind="attr: {src: restErrorImageSrc}">
     </div>

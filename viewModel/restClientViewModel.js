@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 
     /*
-     Tooltips must be initialized with jQuery
+    Tooltips must be initialized with jQuery
     */
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
@@ -113,8 +113,10 @@ $(document).ready(function() {
 
 
     this.displayResult = function(response, textStatus, request){
+      console.log("SUCCESS response is:");
       console.log(response);
       this.restOutput(JSON.stringify(response, null, 2));
+      this.buildSuccessJSON(JSON.stringify(response, null, 2));
       this.fullRestOutput(request.getAllResponseHeaders());
       this.restOutputAvailable(true);
       this.restSuccess(true);
@@ -129,9 +131,6 @@ $(document).ready(function() {
       var iframe = document.getElementById('restErrorPlaceHolder');
       var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
       iframedoc.body.innerHTML = data.responseText;
-
-
-      debugger;
       this.fullRestOutput(data.getAllResponseHeaders());
       //console.error('ERRRRRRRRRRRROOOOOOOOORRRRRRRRRRRR');
       this.toggleLoader();
@@ -139,22 +138,40 @@ $(document).ready(function() {
     }.bind(this);
 
     this.populateImageSRC = function(errorCode){
-      console.log(errorCode);
+      console.log("Error Code is: "+ errorCode);
       var imageSrc = 'images/' + errorCode + '.png';
       this.restErrorImageSrc(imageSrc);
     }.bind(this);
 
+    // this.copyToClipboard = function(){
+    //   console.log("copyToClipBoard restOutputClass");
+    //   var copyTextarea = document.querySelector('.restOutputClass');
+    //   copyTextarea.select();
+    //   try {
+    //     var successful = document.execCommand('copy');
+    //     var msg = successful ? 'successful' : 'unsuccessful';
+    //     console.log('Copying text command was ' + msg);
+    //   } catch (err) {
+    //     console.log('Oops, unable to copy');
+    //   }
+    // }.bind(this);
+
     this.copyToClipboard = function(){
-      console.log("copyToClipbo restOutputClass");
-      var copyTextarea = document.querySelector('.restOutputClass');
-      copyTextarea.select();
+      console.log("copyToClipBoard restOutputClass");
+      var textarea = document.createElement("textarea");
+      textarea.textContent = this.restOutput();
+      textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+      document.body.appendChild(textarea);
+      textarea.select();
       try {
-        var successful = document.execCommand('copy');
-        var msg = successful ? 'successful' : 'unsuccessful';
-        console.log('Copying text command was ' + msg);
-      } catch (err) {
-        console.log('Oops, unable to copy');
+        return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+      } catch (ex) {
+        console.warn("Copy to clipboard failed.", ex);
+        return false;
+      } finally {
+        document.body.removeChild(textarea);
       }
+
     }.bind(this);
 
     this.showHistorySection = function(){
@@ -196,6 +213,11 @@ $(document).ready(function() {
       }
     }.bind(this);
 
+    this.buildSuccessJSON = function(successJSON){
+      var errorFrame = document.getElementById('codeSection');
+      errorFrame.innerHTML = this.beautifyJSON(successJSON);
+    }.bind(this);
+
 
 
 
@@ -213,6 +235,25 @@ $(document).ready(function() {
 
     this.removeHeader = function(header) {
       this.headersList.remove(header);
+    }.bind(this);
+
+    this.beautifyJSON = function(json){
+      json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+          if (/:$/.test(match)) {
+            cls = 'key';
+          } else {
+            cls = 'string';
+          }
+        } else if (/true|false/.test(match)) {
+          cls = 'boolean';
+        } else if (/null/.test(match)) {
+          cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+      });
     }.bind(this);
 
 
