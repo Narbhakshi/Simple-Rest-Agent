@@ -105,82 +105,89 @@
               <tr>
                 <th class="headerRest">Header</th>
                 <td class ="headerKey">
-                  <input placeholder="key" autocomplete="on" class="form-control" id="itemToAddHeaderNameInput" data-bind='textInput: itemToAddHeaderName' />
-                </td>
-                <td class ="headerValue">
-                  <input placeholder="value" class="form-control" data-bind='textInput:itemToAddHeaderValue' />
-                </td>
-                <td><button class="btn btn-primary" type="button " data-bind="click:addItem" text="Add">Add</button>
+                  <input placeholder="key" list="headersAutoComplete" autocomplete="on" class="form-control" id="itemToAddHeaderNameInput" data-bind='textInput: itemToAddHeaderName' />
+                  <datalist class="list-group" id="headersAutoComplete">
+                      <option value="Authorization" class="list-group-item">
+                      <option value="Content-Type" class="list-group-item">
+                      <option value="LOGINID" class="list-group-item">
+                      <option value="CONTACT" class="list-group-item">
+                      <option value="Safari" class="list-group-item">
+                  </datalist>
+                          </td>
+                          <td class ="headerValue">
+                            <input placeholder="value" class="form-control" data-bind='textInput:itemToAddHeaderValue' />
+                          </td>
+                          <td><button class="btn btn-primary" type="button " data-bind="click:addItem" text="Add">Add</button>
 
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
 
-        </div>
-        <div class="restPayloadSection" data-bind="visible:showPayloadFlag">
-          <label for="exampleTextarea">Input Payload</label>
-          <textarea class="form-control" id="exampleTextarea" spellcheck="false" data-bind="value:restPAYLOAD" placeholder="Enter REST payload here" rows="6"></textarea>
-        </div>
-      </div>
-    </form>
-  </div>
+                  </div>
+                  <div class="restPayloadSection" data-bind="visible:showPayloadFlag">
+                    <label for="exampleTextarea">Input Payload</label>
+                    <textarea class="form-control" id="exampleTextarea" spellcheck="false" data-bind="value:restPAYLOAD" placeholder="Enter REST payload here" rows="6"></textarea>
+                  </div>
+                </div>
+              </form>
+            </div>
 
-  <div class="container restOutputBlock" data-bind="visible:restOutputAvailable">
+            <div class="container restOutputBlock" data-bind="visible:restOutputAvailable">
 
-    <div class="row outputControls" data-toggle="collapse" href="#restFullOutputSection" data-bind="click:toggleFullOutput">
-      <a class="toggleFullOutputText"  data-title="Show all the response headers" data-toggle="tooltip"
-      aria-expanded="false" aria-controls="restFullOutputSection" data-placement="bottom" data-bind="text:toggleFullOutputText"></a>
-      <span class="glyphicon outputChevron" data-bind="css:{'glyphicon-chevron-up':showFullRestOutput, 'glyphicon-chevron-down':!showFullRestOutput()}" aria-hidden="true"></span>
-      <h2 class="page-header outputBlockHeading">REST response section</h2>
-    </div>
+              <div class="row outputControls" data-toggle="collapse" href="#restFullOutputSection" data-bind="click:toggleFullOutput">
+                <a class="toggleFullOutputText"  data-title="Show all the response headers" data-toggle="tooltip"
+                aria-expanded="false" aria-controls="restFullOutputSection" data-placement="bottom" data-bind="text:toggleFullOutputText"></a>
+                <span class="glyphicon outputChevron" data-bind="css:{'glyphicon-chevron-up':showFullRestOutput, 'glyphicon-chevron-down':!showFullRestOutput()}" aria-hidden="true"></span>
+                <h2 class="page-header outputBlockHeading">REST response section</h2>
+              </div>
 
-    <div class="row card card-block collapse restFullOutputClass" id="restFullOutputSection">
-      <h4 class="media-heading fullOutputSectionHeader"> ALL HTTP HEADERS </h4>
-      <pre style="overflow:scroll; height: 200px; padding: 20px; border: 1px solid;" data-bind="text:fullRestOutput"></pre>
-    </div>
-    <div class="row outputSection alert alert-success" data-bind="visible:restSuccess">
-      <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
-      <h4 class="media-heading errorSectionHeaderText">  200 Success</h4>
-    </div>
-    <div class="row codeSectionDiv highlight" data-bind="visible:restSuccess">
-      <a class="copyResponseButtonLink pull-right" data-toggle="tooltip" data-title="Copy full output into clipboard" data-placement="bottom" data-bind="click:copyToClipboard" href="#">Copy</a>
-      <pre id="codeSection">
-      </pre>
-    </div>
+              <div class="row card card-block collapse restFullOutputClass" id="restFullOutputSection">
+                <h4 class="media-heading fullOutputSectionHeader"> ALL HTTP HEADERS </h4>
+                <pre style="overflow:scroll; height: 200px; padding: 20px; border: 1px solid;" data-bind="text:fullRestOutput"></pre>
+              </div>
+              <div class="row outputSection alert alert-success" data-bind="visible:restSuccess">
+                <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <h4 class="media-heading errorSectionHeaderText">  200 Success</h4>
+              </div>
+              <div class="row codeSectionDiv highlight" data-bind="visible:restSuccess">
+                <a class="copyResponseButtonLink pull-right" data-toggle="tooltip" data-title="Copy full output into clipboard" data-placement="bottom" data-bind="click:copyToClipboard" href="#">Copy</a>
+                <pre id="codeSection">
+                </pre>
+              </div>
 
-    <div class="row restSuccessScrollOverflow" data-bind="visible:restSuccess">
-    </div>
+              <div class="row restSuccessScrollOverflow" data-bind="visible:restSuccess">
+              </div>
 
-    <div class="row errorSectionHeader alert alert-danger" role="alert" data-bind="visible:restFail">
-      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-      <h4 class="media-heading errorSectionHeaderText" data-bind="text:errorSectionHeader"></h4>
-    </div>
+              <div class="row errorSectionHeader alert alert-danger" role="alert" data-bind="visible:restFail">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <h4 class="media-heading errorSectionHeaderText" data-bind="text:errorSectionHeader"></h4>
+              </div>
 
-    <div class="row " data-bind="visible:restFail">
-      <div class="col-md-3 restErrorImagePlaceHolder">
-        <img class="rounded mx-auto d-block img-thumbnail" alt="Image for error codes" data-bind="attr: {src: restErrorImageSrc}">
-      </div>
-      <div class="col-md-9" data-bind="visible:isRestfailureText">
-        <pre id="restfailureText" class="restfailureText">
-        </pre>
-      </div>
-    </div>
-
-
-    <div class="row restError embed-responsive embed-responsive-4by3" data-bind="visible:restFail">
-      <iframe class="embed-responsive-item" id="restErrorPlaceHolder" ></iframe>
-    </div>
-
-  </div>
+              <div class="row " data-bind="visible:restFail">
+                <div class="col-md-3 restErrorImagePlaceHolder">
+                  <img class="rounded mx-auto d-block img-thumbnail" alt="Image for error codes" data-bind="attr: {src: restErrorImageSrc}">
+                </div>
+                <div class="col-md-9" data-bind="visible:isRestfailureText">
+                  <pre id="restfailureText" class="restfailureText">
+                  </pre>
+                </div>
+              </div>
 
 
+              <div class="row restError embed-responsive embed-responsive-4by3" data-bind="visible:restFail">
+                <iframe class="embed-responsive-item" id="restErrorPlaceHolder" ></iframe>
+              </div>
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="lib/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="bootstrap/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="lib/knockoutt.js"></script>
-  <script type="text/javascript" src="viewModel/restClientViewModel.js"></script>
-</body>
-</html>
+            </div>
+
+
+
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="lib/jquery.min.js"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="bootstrap/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="lib/knockoutt.js"></script>
+            <script type="text/javascript" src="viewModel/restClientViewModel.js"></script>
+          </body>
+          </html>
