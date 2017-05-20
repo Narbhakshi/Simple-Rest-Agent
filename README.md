@@ -11,7 +11,8 @@ Some of them are:
 * Add custom headers to REST
 * Send JSON payload in raw/pretty format
 * Copy the response into clipboard
-
+* Auto-complete for common standard HTTP headers
+* Improved error related details to the users
 
 ## Technologies/libraries used:
 1. jQuery v1.12.4
@@ -19,13 +20,11 @@ Some of them are:
 3. Knockout JavaScript library v3.4.1
 4. javascript and HTML-CSS
 
-All the files are loaded from local machines. cdn or localhost cannot be used as a new server cannot be installed and the access to open web is restricted.
+All the files are loaded from local machines as cdn or localhost cannot be used from machines with rectricted access.
 
 ## TODO - features under development
 These are features that is pending development.
 
 * Save/open history in files on local machine
-* Auto-complete for common standard HTTP headers
-* Improve status code related details to the users
 * Better support for SOAP
 
