@@ -23,7 +23,7 @@ $(document).ready(function() {
     this.disablePayloadSection = ko.observable(true);
     this.showHeadersSectionFlag = ko.observable(true);
     this.toggleFullOutputText = ko.observable('Show more');
-    this.errorSectionHeader = ko.observable("Oops ! Something went wrong");
+    this.errorSectionHeader = ko.observable(" Oops ! Something went wrong");
     this.restMethodsArray = ko.observableArray(["GET","POST","PUT","DELETE"]);
 
     var self = this;
@@ -126,7 +126,6 @@ $(document).ready(function() {
     }.bind(this);
 
     this.onFailureResponse = function(data, textStatus, request){
-      debugger;
       var iframe = document.getElementById('restErrorPlaceHolder');
       var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
       this.restFail(true);
@@ -142,9 +141,9 @@ $(document).ready(function() {
 
     this.manageErrorMessage = function(status, statusText){
       if (status && statusText) {
-        this.errorSectionHeader('Error encountered. ' + status + ' : ' + statusText);
+        this.errorSectionHeader(' Error encountered. ' + status + ' : ' + statusText);
       } else {
-        this.errorSectionHeader('Oops ! Something went wrong');
+        this.errorSectionHeader(' Oops ! Something went wrong ');
       }
     }.bind(this);
 
