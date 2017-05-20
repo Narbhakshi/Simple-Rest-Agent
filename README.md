@@ -1,7 +1,7 @@
 # Simple Rest Agent
 
 This is a simple project to serve simple needs.
-Sometimes installation of new softwares/access of open internet is restriced on many machines we need to work on.
+Sometimes installation of new software/access of open internet is restricted on many machines we need to work on.
 This project aims to cater those audience.
 
 ## Features it offers:
@@ -20,7 +20,7 @@ Some of them are:
 3. Knockout JavaScript library v3.4.1
 4. javascript and HTML-CSS
 
-All the files are loaded from local machines as cdn or localhost cannot be used from machines with rectricted access.
+All the files are loaded from local machines as cdn or localhost cannot be used from machines with restricted access.
 
 ## TODO - features under development
 These are features that is pending development.
