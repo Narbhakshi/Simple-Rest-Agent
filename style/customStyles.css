@@ -232,9 +232,24 @@ pre{
 	border: none;
 }
 
+.restFullOutputClass{
+
+}
+
+.restSuccessScrollOverflow{
+	padding: 60px 0px;
+}
+
+.fullOutputSectionHeader{
+}
+
 
 .copyResponseButtonLink {
 	padding: 15px 30px;
+}
+
+.outputBlockHeading{
+	margin-top: 0px;
 }
 
 

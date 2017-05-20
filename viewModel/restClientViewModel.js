@@ -1,28 +1,30 @@
 $(document).ready(function() {
   "use strict"
   var restClientViewModel = function(items) {
-    this.selectedRestMethod = ko.observable('');
     this.restURL = ko.observable('');
-    this.showHistoryFlag = ko.observable(false);
-    this.showPayloadFlag = ko.observable(false);
+    this.restOutput = ko.observable('');
+    this.restPAYLOAD = ko.observable('');
     this.isRestUrlValid = ko.observable(-1);
     this.fullRestOutput  = ko.observable('');
-    this.restPAYLOAD = ko.observable('');
-    this.restOutput = ko.observable('');
-    this.restSuccess = ko.observable(false);
-    this.restFail = ko.observable(false);
-    this.showHeadersSectionFlag = ko.observable(true);
-    this.restMethodsArray = ko.observableArray(["GET","POST","PUT","DELETE"]);
     this.headersList = ko.observableArray([]);
     this.restURLInputClass = ko.observable('');
-    this.itemToAddHeaderValue = ko.observable('');
-    this.itemToAddHeaderName = ko.observable('');
     this.restErrorImageSrc = ko.observable('');
+    this.selectedRestMethod = ko.observable('');
+    this.itemToAddHeaderName = ko.observable('');
+    this.itemToAddHeaderValue = ko.observable('');
+    this.restFail = ko.observable(false);
     this.isLoading = ko.observable(true);
-    this.disablePayloadSection = ko.observable(true);
-    this.restOutputAvailable = ko.observable(false);
-    this.toggleFullOutputText = ko.observable('Show more');
+    this.restSuccess = ko.observable(false);
+    this.showHistoryFlag = ko.observable(false);
+    this.showPayloadFlag = ko.observable(false);
+    this.isRestfailureText = ko.observable(false);
     this.showFullRestOutput = ko.observable(false);
+    this.restOutputAvailable = ko.observable(false);
+    this.disablePayloadSection = ko.observable(true);
+    this.showHeadersSectionFlag = ko.observable(true);
+    this.toggleFullOutputText = ko.observable('Show more');
+    this.errorSectionHeader = ko.observable("Oops ! Something went wrong");
+    this.restMethodsArray = ko.observableArray(["GET","POST","PUT","DELETE"]);
 
     var self = this;
 
@@ -81,13 +83,12 @@ $(document).ready(function() {
     });
 
     this.restSubmitted = function(){
-      this.restOutputAvailable(false);
       this.toggleLoader();
-      var method = this.selectedRestMethod();
-      var restPayload = this.restPAYLOAD();
-      var url = this.restURL().replace(/ /g,'');
+      this.restOutputAvailable(false);
       var headerArray = this.headersList();
-
+      var restPayload = this.restPAYLOAD();
+      var method = this.selectedRestMethod();
+      var url = this.restURL().replace(/ /g,'');
 
       var setHeaders = function(xhr){
         $.each(headerArray, function( index , object){
@@ -115,26 +116,36 @@ $(document).ready(function() {
     this.displayResult = function(response, textStatus, request){
       console.log("SUCCESS response is:");
       console.log(response);
-      this.restOutput(JSON.stringify(response, null, 2));
-      this.buildSuccessJSON(JSON.stringify(response, null, 2));
-      this.fullRestOutput(request.getAllResponseHeaders());
-      this.restOutputAvailable(true);
-      this.restSuccess(true);
       this.restFail(false);
+      this.restSuccess(true);
+      this.restOutputAvailable(true);
+      this.restOutput(JSON.stringify(response, null, 2));
+      this.fullRestOutput(request.getAllResponseHeaders());
+      this.buildSuccessJSON(JSON.stringify(response, null, 2));
       this.toggleLoader();
     }.bind(this);
 
     this.onFailureResponse = function(data, textStatus, request){
-      this.restOutputAvailable(true);
-      this.restSuccess(false);
-      this.restFail(true);
+      debugger;
       var iframe = document.getElementById('restErrorPlaceHolder');
       var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+      this.restFail(true);
+      this.restSuccess(false);
+      this.restOutputAvailable(true);
+      this.populateImageSRC(data.status);
       iframedoc.body.innerHTML = data.responseText;
       this.fullRestOutput(data.getAllResponseHeaders());
-      //console.error('ERRRRRRRRRRRROOOOOOOOORRRRRRRRRRRR');
+      this.manageErrorMessage(data.status, data.statusText);
+      this.buildFailureJSON(JSON.stringify(data.responseJSON, null, 2));
       this.toggleLoader();
-      this.populateImageSRC(data.status);
+    }.bind(this);
+
+    this.manageErrorMessage = function(status, statusText){
+      if (status && statusText) {
+        this.errorSectionHeader('Error encountered. ' + status + ' : ' + statusText);
+      } else {
+        this.errorSectionHeader('Oops ! Something went wrong');
+      }
     }.bind(this);
 
     this.populateImageSRC = function(errorCode){
@@ -175,9 +186,9 @@ $(document).ready(function() {
     }.bind(this);
 
     this.showHistorySection = function(){
-      this.showHeadersSectionFlag(false);
-      this.showPayloadFlag(false);
       this.showHistoryFlag(true);
+      this.showPayloadFlag(false);
+      this.showHeadersSectionFlag(false);
     }.bind(this);
 
     this.toggleFullOutput = function(){
@@ -200,9 +211,9 @@ $(document).ready(function() {
       if(this.disablePayloadSection()){
         return;
       }
+      this.showPayloadFlag(true);
       this.showHistoryFlag(false);
       this.showHeadersSectionFlag(false);
-      this.showPayloadFlag(true);
     }.bind(this);
 
     this.toggleLoader = function(){
@@ -214,8 +225,19 @@ $(document).ready(function() {
     }.bind(this);
 
     this.buildSuccessJSON = function(successJSON){
-      var errorFrame = document.getElementById('codeSection');
-      errorFrame.innerHTML = this.beautifyJSON(successJSON);
+      var successFrame = document.getElementById('codeSection');
+      successFrame.innerHTML = this.beautifyJSON(successJSON);
+    }.bind(this);
+
+    this.buildFailureJSON = function(failureJSON){
+      var errorFrame = document.getElementById('restfailureText');
+      if(failureJSON){
+        this.isRestfailureText(true);
+        errorFrame.innerHTML = this.beautifyJSON(failureJSON);
+    }else {
+      errorFrame.innerHTML = "";
+      this.isRestfailureText(false);
+    }
     }.bind(this);
 
 
@@ -255,8 +277,6 @@ $(document).ready(function() {
         return '<span class="' + cls + '">' + match + '</span>';
       });
     }.bind(this);
-
-
 
   };
   ko.applyBindings(new restClientViewModel());

@@ -85,37 +85,37 @@
           <ul>History</ul><ul>Loader - Dancing bars</ul><ul>URL Validation</ul><ul>Fixed header</ul>
         </div>
         <div class="headersSection" data-bind="visible:showHeadersSectionFlag">
-            <table class="table table-sm table-striped table-hover">
-              <thead thead-default>
-                <tr table-border>
-                  <th class ="col-md-1 headerRank">#</th>
-                  <th class ="col-md-4 headerKey">Key</th>
-                  <th class ="col-md-7 headerValue">Value</th>
-                </tr>
-              </thead>
-              <tbody data-bind="foreach:headersList">
-                <tr>
-                  <th scope="row" class="headerRank" data-bind="text:$index()+1"></th>
-                  <td class ="headerKey" data-bind="text: headerKey "></td>
-                  <td class ="headerValue" data-bind="text: headerValue "></td>
-                  <td><a href="#" type="button" class="removeLink" data-bind="click: $parent.removeHeader">Remove</a></td>
-                </tr>
-              </tbody>
-              <tbody>
-                <tr>
-                  <th class="headerRest">Header</th>
-                  <td class ="headerKey">
-                    <input placeholder="key" class="form-control" id="itemToAddHeaderNameInput" data-bind='textInput: itemToAddHeaderName' />
-                  </td>
-                  <td class ="headerValue">
-                    <input placeholder="value" class="form-control" data-bind='textInput:itemToAddHeaderValue' />
-                  </td>
-                  <td><button class="btn btn-primary" type="button " data-bind="click:addItem" text="Add">Add</button>
+          <table class="table table-sm table-striped table-hover">
+            <thead thead-default>
+              <tr table-border>
+                <th class ="col-md-1 headerRank">#</th>
+                <th class ="col-md-4 headerKey">Key</th>
+                <th class ="col-md-7 headerValue">Value</th>
+              </tr>
+            </thead>
+            <tbody data-bind="foreach:headersList">
+              <tr>
+                <th scope="row" class="headerRank" data-bind="text:$index()+1"></th>
+                <td class ="headerKey" data-bind="text: headerKey "></td>
+                <td class ="headerValue" data-bind="text: headerValue "></td>
+                <td><a href="#" type="button" class="removeLink" data-bind="click: $parent.removeHeader">Remove</a></td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <th class="headerRest">Header</th>
+                <td class ="headerKey">
+                  <input placeholder="key" class="form-control" id="itemToAddHeaderNameInput" data-bind='textInput: itemToAddHeaderName' />
+                </td>
+                <td class ="headerValue">
+                  <input placeholder="value" class="form-control" data-bind='textInput:itemToAddHeaderValue' />
+                </td>
+                <td><button class="btn btn-primary" type="button " data-bind="click:addItem" text="Add">Add</button>
 
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
         </div>
         <div class="restPayloadSection" data-bind="visible:showPayloadFlag">
@@ -128,35 +128,45 @@
 
   <div class="container restOutputBlock" data-bind="visible:restOutputAvailable">
 
-    <div class="row outputControls">
-      <span>OUTPUT CONTROLS HEADER BAR</span>
-      <a class="toggleFullOutputText" data-toggle="collapse" href="#restFullOutputSection" data-title="Show all the response headers" data-toggle="tooltip"
-      aria-expanded="false" aria-controls="restFullOutputSection" data-placement="bottom" data-bind="text:toggleFullOutputText,click:toggleFullOutput"></a>
+    <div class="row outputControls" data-toggle="collapse" href="#restFullOutputSection" data-bind="click:toggleFullOutput">
+      <a class="toggleFullOutputText"  data-title="Show all the response headers" data-toggle="tooltip"
+      aria-expanded="false" aria-controls="restFullOutputSection" data-placement="bottom" data-bind="text:toggleFullOutputText"></a>
       <span class="glyphicon outputChevron" data-bind="css:{'glyphicon-chevron-up':showFullRestOutput, 'glyphicon-chevron-down':!showFullRestOutput()}" aria-hidden="true"></span>
-      <div class="col-lg-12 collapse" id="restFullOutputSection">
-        <div class="card card-block">
-          FULL OUTPUT SECTION
-          <pre style="overflow:scroll; height: 200px; padding: 20px; border: 1px solid;" data-bind="text:fullRestOutput"></pre>
-        </div>
-      </div>
-    </div>
-    <div class="row outputSection">
-        OUTPUT SECTION
-    </div>
-    <div class="row restSuccess highlight" data-bind="visible:false">
-      <textarea class="restOutputClass xx" rows="20" data-bind="text:restOutput" readonly></textarea>
+      <h2 class="page-header outputBlockHeading">REST response section</h2>
     </div>
 
-    <div class="codeSectionDiv highlight" data-bind="visible:restSuccess">
+    <div class="row card card-block collapse restFullOutputClass" id="restFullOutputSection">
+      <h4 class="media-heading fullOutputSectionHeader"> ALL HTTP HEADERS </h4>
+      <pre style="overflow:scroll; height: 200px; padding: 20px; border: 1px solid;" data-bind="text:fullRestOutput"></pre>
+    </div>
+    <div class="row outputSection" data-bind="visible:restSuccess">
+      <h4 class="media-heading">RESPONSE JSON</h4>
+    </div>
+    <div class="row codeSectionDiv highlight" data-bind="visible:restSuccess">
       <a class="copyResponseButtonLink pull-right" data-toggle="tooltip" data-title="Copy full output into clipboard" data-placement="bottom" data-bind="click:copyToClipboard" href="#">Copy</a>
       <pre id="codeSection">
       </pre>
     </div>
 
-    <div class="row restErrorImagePlaceHolder" data-bind="visible:restFail">
-      <img class="col-md-4 rounded mx-auto d-block img-thumbnail" alt="Image for error codes" data-bind="attr: {src: restErrorImageSrc}">
+    <div class="row restSuccessScrollOverflow" data-bind="visible:restSuccess">
     </div>
-    <div class=" row restError embed-responsive embed-responsive-4by3" data-bind="visible:restFail">
+
+    <div class="row errorSectionHeader" data-bind="visible:restFail">
+      <h4 class="media-heading" data-bind="text:errorSectionHeader"></h4>
+    </div>
+
+    <div class="row " data-bind="visible:restFail">
+      <div class="col-md-3 restErrorImagePlaceHolder">
+        <img class="rounded mx-auto d-block img-thumbnail" alt="Image for error codes" data-bind="attr: {src: restErrorImageSrc}">
+      </div>
+      <div class="col-md-9" data-bind="visible:isRestfailureText">
+        <pre id="restfailureText" class="restfailureText">
+        </pre>
+      </div>
+    </div>
+
+
+    <div class="row restError embed-responsive embed-responsive-4by3" data-bind="visible:restFail">
       <iframe class="embed-responsive-item" id="restErrorPlaceHolder" ></iframe>
     </div>
 
@@ -164,11 +174,11 @@
 
 
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="lib/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="lib/knockoutt.js"></script>
-<script type="text/javascript" src="viewModel/restClientViewModel.js"></script>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="lib/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="lib/knockoutt.js"></script>
+  <script type="text/javascript" src="viewModel/restClientViewModel.js"></script>
 </body>
 </html>
